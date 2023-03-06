@@ -1,0 +1,38 @@
+version: api.keploy.io/v1beta2
+kind: Http
+name: test-3
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: /crud/user/getall
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Connection: keep-alive
+            Postman-Token: 780fbc4c-76a8-4bbb-b8ec-d6153b639e69
+            User-Agent: PostmanRuntime/7.31.1
+        body: ""
+        body_type: utf-8
+    resp:
+        status_code: 200
+        header:
+            Content-Type: application/json; charset=utf-8
+        body: '[{"name":"ayush","age":20,"address":{"state":"CG","city":"Bhilai","pincode":1}},{"name":"Poonam","age":20,"address":{"state":"CG","city":"Bhilai","pincode":7}},{"name":"To be deleted","age":20,"address":{"state":"CG","city":"Bhilai","pincode":2}}]'
+        body_type: utf-8
+        status_message: ""
+        proto_major: 1
+        proto_minor: 1
+    objects:
+        - type: error
+          data: H4sIAAAAAAAA/wEAAP//AAAAAAAAAAA=
+    assertions:
+        noise:
+            - body.age
+            - body.address.city
+            - body.address.pincode
+            - body.address.state
+            - body.name
+    created: 1678086690

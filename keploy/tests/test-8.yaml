@@ -1,0 +1,33 @@
+version: api.keploy.io/v1beta2
+kind: Http
+name: test-8
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: /crud/user/get/ap
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Connection: keep-alive
+            Postman-Token: 85eccf73-d422-4211-aab8-68054d425fa7
+            User-Agent: PostmanRuntime/7.31.1
+        body: ""
+        body_type: utf-8
+    resp:
+        status_code: 200
+        header:
+            Content-Type: application/json; charset=utf-8
+        body: '{"name":"ap","age":20,"address":{"state":"CG","city":"Bhilai","pincode":2}}'
+        body_type: utf-8
+        status_message: ""
+        proto_major: 1
+        proto_minor: 1
+    objects:
+        - type: error
+          data: H4sIAAAAAAAA/wEAAP//AAAAAAAAAAA=
+    assertions:
+        noise: []
+    created: 1678088090
