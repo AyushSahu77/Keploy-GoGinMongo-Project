@@ -23,6 +23,6 @@ Download Visual Studio Code on your machine at [VScode]
 [//]: # 
 
 [LinkedIn]: <https://www.linkedin.com/in/ayushsahu77/>
-[Twitter]: <https://twitter.com/Ayush_7477/
+[Twitter]: <https://twitter.com/Ayush_7477/>
 [VScode]:<https://code.visualstudio.com//>
 [Keploy-Offical]: <https://github.com/keploy/>
