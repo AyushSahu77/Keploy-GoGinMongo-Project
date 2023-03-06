@@ -12,7 +12,7 @@ Used API testing platform : [Postman] 10.11.1
 
 Used IDE : Visual Studio Code 1.76.0 
 
-OS : MacOS Venture 13.2
+OS : MacOS Ventura 13.2
 
 Download Visual Studio Code on your machine at [VScode]
 
