@@ -1,0 +1,41 @@
+version: api.keploy.io/v1beta2
+kind: Http
+name: test-15
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: /favicon.ico
+        header:
+            Accept: image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8
+            Accept-Encoding: gzip, deflate, br
+            Accept-Language: en-US,en;q=0.9,en-IN;q=0.8
+            Connection: keep-alive
+            Cookie: hubspotutk=7f8ae6f9baca41245bbe8af2097ffeb8; fs_uid=#16T4RJ#6382921298186240:5408442887671808:::#/1697214209; fs_cid=1.0; _ga=GA1.1.928907070.1667980025; _ga_HSLPREE541=GS1.1.1668656843.4.1.1668659397.0.0.0; csrftoken=dOsMvZwW8ELj5xgxn5gQWjsTgb2IoNExG6V4xq9bUnccO4AwjraPGCDZOsc1i23b; __hstc=181257784.7f8ae6f9baca41245bbe8af2097ffeb8.1664776610960.1671798693458.1672244772168.3
+            Dnt: "1"
+            Referer: http://localhost:9090/getall
+            Sec-Ch-Ua: '"Chromium";v="110", "Not A(Brand";v="24", "Microsoft Edge";v="110"'
+            Sec-Ch-Ua-Mobile: ?0
+            Sec-Ch-Ua-Platform: '"Windows"'
+            Sec-Fetch-Dest: image
+            Sec-Fetch-Mode: no-cors
+            Sec-Fetch-Site: same-origin
+            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.63
+        body: ""
+        body_type: utf-8
+    resp:
+        status_code: 404
+        header: {}
+        body: ""
+        body_type: utf-8
+        status_message: ""
+        proto_major: 1
+        proto_minor: 1
+    objects:
+        - type: error
+          data: H4sIAAAAAAAA/wEAAP//AAAAAAAAAAA=
+    assertions:
+        noise: []
+    created: 1678101680
