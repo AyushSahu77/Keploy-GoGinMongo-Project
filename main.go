@@ -3,8 +3,6 @@ package main
 import (
 	//default go packages
 	"context"
-	"fmt"
-	"log"
 	"time"
 
 	//"net/http"
@@ -26,7 +24,6 @@ import (
 	//mongo packages
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
 var (
@@ -41,27 +38,6 @@ var (
 	logger      *zap.Logger
 )
 
-func init() {
-	ctx = context.TODO()
-
-	mongoconn := options.Client().ApplyURI("mongodb+srv://AyushsCluster77:mongocluster139@cluster0.wy6ry18.mongodb.net/GoApp?retryWrites=true&w=majority")
-	mongoclient, err = mongo.Connect(ctx, mongoconn)
-	if err != nil {
-		log.Fatal("error while connecting with mongo", err)
-	}
-	err = mongoclient.Ping(ctx, readpref.Primary())
-	if err != nil {
-		log.Fatal("error while trying to ping mongo", err)
-	}
-
-	fmt.Println("mongo connection established")
-
-	userc = mongoclient.Database("GoAppDB").Collection("user")
-	us = services.NewUserService(userc, ctx)
-	uc = controllers.New(us)
-	server = gin.Default()
-}
-
 func New(host, db string) (*mongo.Client, error) {
 	clientOptions := options.Client()
 
@@ -75,14 +51,11 @@ func New(host, db string) (*mongo.Client, error) {
 func main() {
 	// defer mongoclient.Disconnect(ctx)
 
-	basepath := server.Group("/crud")
-	uc.RegisterUserRoutes(basepath)
-
 	logger, _ = zap.NewProduction()
 	defer logger.Sync() // flushes buffer, if any
 
 	dbName, collection := "KeployInteGO", "user"
-	client, err := New("mongodb+srv%3a%2f%2fAyushsCluster77%3amongocluster139@cluster0.wy6ry18.mongodb.net%2fGoApp%3fretryWrites=true&w=majority", dbName)
+	client, err := New("localhost:27017", dbName)
 	if err != nil {
 		logger.Fatal("failed to create mongo db client", zap.Error(err))
 	}
@@ -90,8 +63,11 @@ func main() {
 	db := client.Database(dbName)
 	col = kmongo.NewCollection(db.Collection(collection))
 
+	us = services.NewUserService(col)
+	uc = controllers.New(us)
+
 	port := "9090"
-	r := gin.New()
+
 	k := keploy.New(keploy.Config{
 		App: keploy.AppConfig{
 			Name: "ayush-keploy-apis",
@@ -101,11 +77,16 @@ func main() {
 			URL: "http://localhost:6789/api",
 		},
 	})
+
+	r := gin.Default()
+
 	kgin.GinV1(k, r)
+
 	r.POST("/crud/user/create", uc.CreateUser)
 	r.GET("/crud/user/get/:name", uc.GetUser)
 	r.GET("/crud/user/getall", uc.GetAll)
 	r.PATCH("/crud/user/update", uc.UpdateUser)
 	r.DELETE("/crud/user/delete/:name", uc.DeleteUser)
-	log.Fatal(r.Run(":" + port))
+
+	r.Run(":" + port)
 }
