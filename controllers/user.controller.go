@@ -24,7 +24,7 @@ func (uc *UserController) CreateUser(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
-	err := uc.UserService.CreateUser(&user)
+	err := uc.UserService.CreateUser(ctx.Request.Context(), &user)
 	if err != nil {
 		ctx.JSON(http.StatusBadGateway, gin.H{"message": err.Error()})
 		return
@@ -34,7 +34,7 @@ func (uc *UserController) CreateUser(ctx *gin.Context) {
 
 func (uc *UserController) GetUser(ctx *gin.Context) {
 	var username string = ctx.Param("name")
-	user, err := uc.UserService.GetUser(&username)
+	user, err := uc.UserService.GetUser(ctx.Request.Context(), &username)
 	if err != nil {
 		ctx.JSON(http.StatusBadGateway, gin.H{"message": err.Error()})
 		return
@@ -43,7 +43,7 @@ func (uc *UserController) GetUser(ctx *gin.Context) {
 }
 
 func (uc *UserController) GetAll(ctx *gin.Context) {
-	users, err := uc.UserService.GetAll()
+	users, err := uc.UserService.GetAll(ctx.Request.Context())
 	if err != nil {
 		ctx.JSON(http.StatusBadGateway, gin.H{"message": err.Error()})
 		return
@@ -57,7 +57,7 @@ func (uc *UserController) UpdateUser(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, gin.H{"message": err.Error()})
 		return
 	}
-	err := uc.UserService.UpdateUser(&user)
+	err := uc.UserService.UpdateUser(ctx.Request.Context(), &user)
 	if err != nil {
 		ctx.JSON(http.StatusBadGateway, gin.H{"message": err.Error()})
 		return
@@ -67,7 +67,7 @@ func (uc *UserController) UpdateUser(ctx *gin.Context) {
 
 func (uc *UserController) DeleteUser(ctx *gin.Context) {
 	var username string = ctx.Param("name")
-	err := uc.UserService.DeleteUser(&username)
+	err := uc.UserService.DeleteUser(ctx.Request.Context(), &username)
 	if err != nil {
 		ctx.JSON(http.StatusBadGateway, gin.H{"message": err.Error()})
 		return

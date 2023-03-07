@@ -1,0 +1,33 @@
+version: api.keploy.io/v1beta2
+kind: Http
+name: test-16
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: /getall
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Connection: keep-alive
+            Postman-Token: b10e05da-7921-478e-9cd2-99b091a02aea
+            User-Agent: PostmanRuntime/7.30.0
+        body: ""
+        body_type: utf-8
+    resp:
+        status_code: 404
+        header:
+            Content-Type: text/plain
+        body: ""
+        body_type: utf-8
+        status_message: ""
+        proto_major: 1
+        proto_minor: 1
+    objects:
+        - type: error
+          data: H4sIAAAAAAAA/wEAAP//AAAAAAAAAAA=
+    assertions:
+        noise: []
+    created: 1678171482

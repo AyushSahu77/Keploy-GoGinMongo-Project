@@ -1,0 +1,37 @@
+version: api.keploy.io/v1beta2
+kind: Http
+name: test-19
+spec:
+    metadata: {}
+    req:
+        method: GET
+        proto_major: 1
+        proto_minor: 1
+        url: /sample
+        header:
+            Accept: '*/*'
+            Accept-Encoding: gzip, deflate, br
+            Connection: keep-alive
+            Postman-Token: 69ffe18d-0fbb-4817-94fe-857e9fa109de
+            User-Agent: PostmanRuntime/7.30.0
+        body: ""
+        body_type: utf-8
+    resp:
+        status_code: 502
+        header:
+            Content-Type: application/json; charset=utf-8
+        body: '{"message":"no corresponding data found"}'
+        body_type: utf-8
+        status_message: ""
+        proto_major: 1
+        proto_minor: 1
+    objects:
+        - type: error
+          data: H4sIAAAAAAAA/wEAAP//AAAAAAAAAAA=
+    mocks:
+        - mock-19-0
+        - mock-19-1
+        - mock-19-2
+    assertions:
+        noise: []
+    created: 1678172305

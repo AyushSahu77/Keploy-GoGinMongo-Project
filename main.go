@@ -63,6 +63,9 @@ func main() {
 	db := client.Database(dbName)
 	col = kmongo.NewCollection(db.Collection(collection))
 
+	us = services.NewUserService(col)
+	uc = controllers.New(us)
+
 	port := "9090"
 
 	k := keploy.New(keploy.Config{
