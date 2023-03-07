@@ -5,8 +5,6 @@ import (
 	"context"
 	"time"
 
-	//"net/http"
-
 	// the project packages
 	"example.com/ayush-keploy-apis/controllers"
 	"example.com/ayush-keploy-apis/services"
@@ -16,7 +14,6 @@ import (
 	//keploy packages
 
 	"github.com/keploy/go-sdk/integrations/kgin/v1"
-	//"github.com/keploy/go-sdk/integrations/khttpclient"
 	"github.com/keploy/go-sdk/integrations/kmongo"
 	"github.com/keploy/go-sdk/keploy"
 	"go.uber.org/zap"
@@ -27,13 +24,8 @@ import (
 )
 
 var (
-	server      *gin.Engine
 	us          services.UserService
 	uc          controllers.UserController
-	ctx         context.Context
-	userc       *mongo.Collection
-	mongoclient *mongo.Client
-	err         error
 	col         *kmongo.Collection
 	logger      *zap.Logger
 )
@@ -41,7 +33,7 @@ var (
 func New(host, db string) (*mongo.Client, error) {
 	clientOptions := options.Client()
 
-	clientOptions.ApplyURI("mongodb://" + host + "/" + db + "?retryWrites=true&w=majority")
+	clientOptions.ApplyURI("mongodb+srv://" + host + "/" + db + "?retryWrites=true&w=majority")
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -54,8 +46,8 @@ func main() {
 	logger, _ = zap.NewProduction()
 	defer logger.Sync() // flushes buffer, if any
 
-	dbName, collection := "KeployInteGO", "user"
-	client, err := New("localhost:27017", dbName)
+	dbName, collection := "GoAppDB", "user"       // Change this to your DB and Collection names
+	client, err := New("AyushsCluster77:<PASSWORD>@cluster0.wy6ry18.mongodb.net", dbName)  // Change the <PASSWORD> to your password of the cluster
 	if err != nil {
 		logger.Fatal("failed to create mongo db client", zap.Error(err))
 	}
@@ -82,11 +74,11 @@ func main() {
 
 	kgin.GinV1(k, r)
 
-	r.POST("/crud/user/create", uc.CreateUser)
-	r.GET("/crud/user/get/:name", uc.GetUser)
-	r.GET("/crud/user/getall", uc.GetAll)
-	r.PATCH("/crud/user/update", uc.UpdateUser)
-	r.DELETE("/crud/user/delete/:name", uc.DeleteUser)
+	r.POST("/create", uc.CreateUser)
+	r.GET("/get/:name", uc.GetUser)
+	r.GET("/getall", uc.GetAll)
+	r.PATCH("/update", uc.UpdateUser)
+	r.DELETE("/delete/:name", uc.DeleteUser)
 
 	r.Run(":" + port)
 }
