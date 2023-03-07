@@ -54,7 +54,7 @@ func (u *UserServiceImpl) GetAll(ctx context.Context) ([]*models.User, error) {
 	cursor.Close(ctx)
 
 	if len(users) == 0 {
-		return nil, errors.New("no corresponding data found")
+		return nil, errors.New("no data present in the database found")
 	}
 	return users, nil
 }
